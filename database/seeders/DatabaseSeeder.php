@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\{
-    Support\Facades\Hash,
     Database\Seeder,
 };
 
@@ -12,13 +11,15 @@ class DatabaseSeeder extends Seeder
 { 
     public function run ()
     {
+        //$this->call('Database\Seeders\UsersSeeder');
+        $files_arr = scandir( dirname(__FILE__) );
 
-        $user = new User();
-
-        $user->name = 'test';
-        $user->email = 'test@gmail.com';
-        $user->password = Hash::make('parole');
-        
-        $user->save();
+        foreach ($files_arr as $key => $file){
+            if ($file !== 'DatabaseSeeder.php' && $file[0] !== "." ){
+                $seeder = "Database\Seeders\\". explode('.', $file)[0];
+                echo $seeder;
+                $this->call($seeder);
+            }
+        }
     }
 }
