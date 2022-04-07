@@ -7,7 +7,7 @@ use App\{
 
 function checkIfSeeded ($class)
 {
-    $seedClass = get_class($class);
+    $seedClass = $class;
 
     $seed = Seed::where('seed', $seedClass)->first();
 
@@ -21,7 +21,7 @@ function checkIfSeeded ($class)
 
 function storeSeed ($class)
 {
-    $seedClass = get_class($class);
+    $seedClass = $class;
 
     $seed = new Seed();
     $seed->seed = $seedClass;

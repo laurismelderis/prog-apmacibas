@@ -6,26 +6,25 @@ use Illuminate\{
     Support\Facades\Hash,
     Database\Seeder,
 };
+
 use App\Models\User;
 
 class UserSeeder extends Seeder
 {
-    public function run()
+    public function run ()
     {
-        echo checkIfSeeded($this);
-        if (checkIfSeeded('UserSeeder')) return 
-        $test = '123';
-        $cilveks = new User();
-        dd($test);
-        // User::create([
-        //     'name' => 'davids'
-        // ]);
-        $user->name = 'test';
-        $user->email = 'test@gmail.com';
-        $user->password = Hash::make('parole');
-        
-        $user->save();
+        $className = get_class($this);
 
-        storeSeed($this);
+        if (checkIfSeeded($className)) {
+            echo "Already seeded \n";
+            return;
+        }
+
+        User::factory()
+            ->count(1)
+            ->testUser()
+            ->create();
+
+        storeSeed($className);
     }
 }

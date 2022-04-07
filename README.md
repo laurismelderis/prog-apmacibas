@@ -16,7 +16,7 @@ Setup
         DB_PORT=3306
         DB_DATABASE=YOUR_DATABASE
         DB_USERNAME=YOUR_DATABASE_USER
-        DB_PASSWORD=YOUR_SER__PASSWORD
+        DB_PASSWORD=YOUR_USER__PASSWORD
 
         save file
 
@@ -85,7 +85,7 @@ PHP
     8. For migrations name always use laravel convention and all migration should have down function 
         as well as all foreign keys should be constrained
 
-    9  in is statements use spaces to seperate all parts example below
+    9  in if statements use spaces to seperate all parts example below
         1. good 
             if (true) {
 

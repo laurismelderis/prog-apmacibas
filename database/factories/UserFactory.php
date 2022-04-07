@@ -2,17 +2,15 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Illuminate\{
+    Database\Eloquent\Factories\Factory,
+    Support\Facades\Hash,
+    Support\Str,
+};
 
 class UserFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
+    public function definition ()
     {
         return [
             'name' => $this->faker->name(),
@@ -23,16 +21,15 @@ class UserFactory extends Factory
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    public function unverified()
+    public function testUser ()
     {
         return $this->state(function (array $attributes) {
             return [
-                'email_verified_at' => null,
+                'name' => 'test',
+                'email' => 'test@gmail.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('parole'), // password
+                'remember_token' => Str::random(10),
             ];
         });
     }
