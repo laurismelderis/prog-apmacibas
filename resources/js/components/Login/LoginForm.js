@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-function LoginForm({ Login, error }) {
-
+function LoginForm() {
+  const navigate = useNavigate();
   const [details, setDetails] = useState({ name: '', email: '', password: '' })
 
   const submitHandler = e => {
@@ -16,10 +17,10 @@ function LoginForm({ Login, error }) {
             email: details.email,
             password: details.password
           })
+        navigate("/")
       })
 
     console.log(details)
-    Login(details)
   }
 
   const test = e => {
@@ -73,7 +74,7 @@ function LoginForm({ Login, error }) {
           <button
             onClick={test}
           >
-            tests login
+            tests 
           </button>
         </div>
       </div>
