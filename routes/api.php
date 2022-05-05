@@ -21,4 +21,6 @@ Route::middleware('auth:sanctum')->group(function (){
 
 Route::post('login', [AuthController::class, 'logIn']);
 
-Route::get('courses', [CourseController::class, 'index']);
+Route::apiResources(
+    ['courses' => CourseController::class]
+);
