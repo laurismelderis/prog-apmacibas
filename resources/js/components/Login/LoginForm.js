@@ -2,10 +2,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import { useDispatch } from 'react-redux';
+import { setIsLoggedIn, setUser } from '../../state/actions';
 
 function LoginForm() {
     const navigate = useNavigate();
     const [details, setDetails] = useState({ name: '', email: '', password: '' })
+
+    const dispatch = useDispatch()
 
     const submitHandler = e => {
         e.preventDefault()
@@ -17,10 +21,15 @@ function LoginForm() {
                 email: details.email,
                 password: details.password
             })
+            .then(response => {
+                console.log(response.data)
+                dispatch(setUser(response.data))
+            })
             navigate("/")
         })
 
         console.log(details)
+        dispatch(setIsLoggedIn(true))
     }
 
     const test = e => {

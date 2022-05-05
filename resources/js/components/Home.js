@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import getCourses from '../services/courses'
+import { getCourses } from '../services/courses'
 
 import '../../css/Home.css'
 import { fill } from 'lodash';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsInCourse } from '../state/actions';
 
 function Home() {
+    const dispatch = useDispatch()
+
     const courses = getCourses()
 
     const getBackground = (progress) => {
@@ -16,6 +19,10 @@ function Home() {
         if (fillAmount < 0) fillAmount = 0
         return `linear-gradient(to right, green ${fillAmount}%, rgb(39, 39, 39) ${fillAmount}% 80%)`
     }
+
+    useEffect(() => {
+        dispatch(setIsInCourse(false))
+    }, [dispatch])
 
     return (
         <>

@@ -3,12 +3,13 @@ import Logo from './Logo'
 import UserInformation from './UserInformation'
 
 import '../../../css/Navbar.css'
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 
 function Navbar() {
-    let isInCourse = false
+    const isInCourse = useSelector(state => state.isInCourse)
 
     const isLoggedIn = useSelector(state => state.isLoggedIn)
 
@@ -18,11 +19,11 @@ function Navbar() {
                 <Logo />
                 {isInCourse
                     ?
-                    <button>
+                    <Link to={"/"}>
                         <FontAwesomeIcon icon={faHome}/>
                         {" "}
                         Uz galveno lapu
-                    </button>
+                    </Link>
                     :
                     <></>
                 }

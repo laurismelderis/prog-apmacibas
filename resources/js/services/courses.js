@@ -8,6 +8,7 @@
         }
     ]
 */
+import _ from 'lodash'
 
 const courses = [
     {
@@ -22,8 +23,10 @@ const courses = [
     },
 ]
 
-const getCourses = () => {
+export const getCourses = () => {
     return courses;
 }
 
-export default getCourses;
+export const getCourseByPath = (path) => {
+    return _.find(courses, {path: path})
+}
