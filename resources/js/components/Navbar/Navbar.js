@@ -22,7 +22,7 @@ function Navbar() {
                     <Link to={"/"}>
                         <FontAwesomeIcon icon={faHome}/>
                         {" "}
-                        Uz galveno lapu
+                        Iziet no kursa
                     </Link>
                     :
                     <></>

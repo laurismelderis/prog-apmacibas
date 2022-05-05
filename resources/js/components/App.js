@@ -1,30 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import LoginForm from './Login/LoginForm'
 import Home from './Home'
 import Course from './Course';
 import Navbar from './Navbar/Navbar';
 import store from '../state/state'
-import { getCourses } from '../services/courses';
 
 import "../../css/App.css"
+import NotFound from './NotFound';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
-    const courses = getCourses()
+    const user = useSelector(state => state.user)
 
     return (
         <div className='main-container'>
             <Navbar />
             <div className='main-content'>
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<LoginForm />} />
-                    {courses.map((course, index) => (
-                        <Route path={course.path} element={<Course path={course.path} key={index} />} />
-                    ))}
+                    <Route path="/" element={
+                        <ProtectedRoute user={user} >
+                            <Home />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="courses/:course" element={
+                        <ProtectedRoute user={user} >
+                            <Course />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="login" element={<LoginForm />} />
+                    <Route path="not-found" element={<NotFound />} />
+                    <Route path="*" element={<Navigate to={"not-found"} />}/>
                 </Routes>
             </div>
         </div>

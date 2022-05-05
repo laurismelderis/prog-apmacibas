@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-import { getCourseByPath } from '../services/courses'
+import { getCourseById } from '../services/courses'
 import { setIsInCourse } from '../state/actions'
 
-function Course({ path }) {
+function Course({ match }) {
     const dispatch = useDispatch()
+    const params = useParams()
 
-    const course = getCourseByPath(path)
+    const courseName = params.course
+
+    const course = getCourseById(courseName)
 
     useEffect(() => {
         dispatch(setIsInCourse(true))
