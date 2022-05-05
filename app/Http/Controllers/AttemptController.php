@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attemp;
 use Illuminate\Http\Request;
 
-class AttempController extends Controller
+class AttemptController extends Controller
 {
     /**
      * Display a listing of the resource.
