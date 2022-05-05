@@ -1,5 +1,8 @@
-html {
+html, body {
     font-family: 'Courier New', Courier, monospace;
+    background-color: rgb(39, 39, 39);
+    font-weight: 900;
+    color: white;
 }
 
 .main-container {
@@ -11,4 +14,15 @@ html {
 
 button {
     border-radius: 0.75em;
+    background: #9c9c9c;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background-color: rgb(118, 118, 118);
+}
+
+.main-content {
+    margin-top: 1em;
 }

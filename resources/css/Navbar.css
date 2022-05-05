@@ -5,15 +5,12 @@
 
     align-items: flex-start;
 
-    background-color: #CCCCCC;
-
     padding-top: 1em;
     padding-bottom: 1em;
 }
 
 .navbar-logo {
     flex: 1;
-    padding-left: 1em;
 
     display: flex;
     flex-direction: column;
@@ -42,7 +39,6 @@
 
 .navbar-user div {
     padding-left: 1em;
-    padding-right: 1em;
 }
 
 .navbar-user h5 {
@@ -51,10 +47,6 @@
 
 .navbar-user button {
     margin-top: 0.5em;
-}
-
-.navbar-user button:hover {
-    background-color: rgb(176, 176, 176);
 }
 
 .navbar-user div {
