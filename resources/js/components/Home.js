@@ -4,6 +4,7 @@ import getCourses from '../services/courses'
 
 import '../../css/Home.css'
 import { fill } from 'lodash';
+import { useSelector } from 'react-redux';
 
 function Home() {
     const courses = getCourses()

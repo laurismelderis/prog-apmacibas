@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginForm from './Login/LoginForm'
 import Home from './Home'
-import Navbar from './Navbar';
+import Navbar from './Navbar/Navbar';
+import store from '../state/state'
 
 import "../../css/App.css"
 
@@ -25,8 +28,10 @@ export default App;
 
 if (document.getElementById('app')) {
     ReactDOM.render(
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>,
+        <Provider store={store}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </Provider>,
         document.getElementById('app'));
 }
