@@ -8,6 +8,9 @@ use Illuminate\{
 use App\Http\Controllers\{
     AuthController,
 };
+use App\Http\Controllers\{
+    CourseController,
+};
 
 Route::middleware('auth:sanctum')->group(function (){
     Route::get('/user', function (Request $request) {
@@ -17,3 +20,5 @@ Route::middleware('auth:sanctum')->group(function (){
 });
 
 Route::post('login', [AuthController::class, 'logIn']);
+
+Route::get('courses', [CourseController::class, 'index']);

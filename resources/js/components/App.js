@@ -10,7 +10,7 @@ import Navbar from './Navbar/Navbar';
 import store from '../state/state'
 import { getCourses } from '../services/courses';
 
-import "../../css/App.css"
+import "../../css/app.css"
 
 function App() {
     const courses = getCourses()
