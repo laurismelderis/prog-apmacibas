@@ -39,7 +39,12 @@ class UserFactory extends Factory
         });
     }
 
-    public function user($type, $group)
+    /**
+     * @param int $type
+     * @param int $group
+     * @return static
+     */
+    public function user(int $type, int $group)
     {
         return $this->state([
             'type_id' => $type,

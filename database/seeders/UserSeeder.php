@@ -15,7 +15,10 @@ class UserSeeder extends Seeder
 {
     public function run ()
     {
-        $className = get_class($this);
+        if(checkIfSeeded(get_class($this))){
+            echo "Already seeded \n";
+            return;
+        }
         $groups = Group::pluck('name', 'id');
         $types = Type::pluck('name', 'id');
 
@@ -40,6 +43,6 @@ class UserSeeder extends Seeder
             }
         }
 
-        storeSeed($className);
+        storeSeed(get_class($this));
     }
 }
