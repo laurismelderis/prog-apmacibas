@@ -8,6 +8,7 @@
         }
     ]
 */
+import axios from 'axios';
 import _ from 'lodash'
 
 const prefix = '/courses';
@@ -25,10 +26,10 @@ const courses = [
     },
 ]
 
-export const getCourses = () => {
-    return courses;
+export const getCourses = async () => {
+    return axios.get("/api/courses")
 }
 
 export const getCourseById = (id) => {
-    return _.find(courses, {id: id})
+    return axios.get(`/api/courses/${id}`)
 }

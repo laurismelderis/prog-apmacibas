@@ -6,11 +6,18 @@ import '../../css/Home.css'
 import _ from 'lodash';
 import { useDispatch } from 'react-redux';
 import { setIsInCourse } from '../state/actions';
+import { useState } from 'react';
 
 function Home() {
     const dispatch = useDispatch()
 
-    const courses = getCourses()
+    const [courses, setCourses] = useState([]) 
+
+    useEffect(async () => {
+        const { data } = await getCourses()
+        setCourses(data)
+        dispatch(setIsInCourse(false))
+    }, [])
     
     const getBackground = (progress) => {
         let fillAmount = progress * 100
@@ -19,10 +26,6 @@ function Home() {
         if (fillAmount < 0) fillAmount = 0
         return `linear-gradient(to right, green ${fillAmount}%, rgb(39, 39, 39) ${fillAmount}% 80%)`
     }
-    
-    useEffect(() => {
-        dispatch(setIsInCourse(false))
-    }, [])
 
     return (
         <>
@@ -32,11 +35,14 @@ function Home() {
             <hr />
             <div className='course-box-wrapper'>
                 {courses.map((course, index) => (
-                    <Link to={`/courses/${course.name.toLowerCase()}`} key={index}>
+                    <Link 
+                        to={`/courses/${course.id}`}
+                        key={index}
+                    >
                         <div 
                             className="course-outer-box"
                             style={{
-                                background: getBackground(course.completion)
+                                background: getBackground(0.5) // SET COMPLETION
                             }}
                         >
                             <div className="course-inner-box">{course.name}</div>

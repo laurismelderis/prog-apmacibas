@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Provider, useSelector } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import LoginForm from './Login/LoginForm'
@@ -12,22 +12,26 @@ import store from '../state/state'
 import "../../css/App.css"
 import NotFound from './NotFound';
 import ProtectedRoute from './ProtectedRoute';
+import { setIsLoggedIn } from '../state/actions';
 
 function App() {
-    const user = useSelector(state => state.user)
+    const dispatch = useDispatch()
 
+    if (authUser) {
+        dispatch(setIsLoggedIn(true))
+    }
     return (
         <div className='main-container'>
             <Navbar />
             <div className='main-content'>
                 <Routes>
                     <Route path="/" element={
-                        <ProtectedRoute user={user} >
+                        <ProtectedRoute >
                             <Home />
                         </ProtectedRoute>
                     } />
                     <Route path="courses/:course" element={
-                        <ProtectedRoute user={user} >
+                        <ProtectedRoute >
                             <Course />
                         </ProtectedRoute>
                     } />

@@ -9,7 +9,10 @@
     </head>
     
     <body>
-        <div id="app"></div>       
+        <div id="app"></div>
+        <script>
+            let authUser = {!! json_encode(Auth::user()) !!}
+        </script>
         <script src="{{asset('js/app.js')}}"></script>
     </body>
 

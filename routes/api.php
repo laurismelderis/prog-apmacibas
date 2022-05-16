@@ -14,7 +14,7 @@ use App\Http\Controllers\{
 
 Route::middleware('auth:sanctum')->group(function (){
     Route::get('/user', function (Request $request) {
-        return Auth::user();
+        return response()->json(Auth::user());
     });
     Route::post('/logout', [AuthController::class, 'logOut']);
 });

@@ -1,15 +1,16 @@
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
-import { setIsLoggedIn, setUser } from '../../state/actions';
+import { setIsLoggedIn } from '../../state/actions';
 import _ from 'lodash'
 
 function LoginForm() {
     const navigate = useNavigate()
 
     const [details, setDetails] = useState({ name: '', email: '', password: '' })
+    const [loginFailed, setLoginFailed] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -19,34 +20,31 @@ function LoginForm() {
         .get('/sanctum/csrf-cookie')
         .then(response => {
             axios
-            .post('/api/login', {
-                email: details.email,
-                password: details.password
-            })
-            .then(({ data }) => {
-                if (_.isEmpty(data)) {
-                    dispatch(setIsLoggedIn(false))
-                } else {
-                    dispatch(setIsLoggedIn(true))
-                    dispatch(setUser(data))
-                    navigate("/")
-                }
-            })
+                .post('/api/login', {
+                    email: details.email,
+                    password: details.password
+                })
+                .then(({ data }) => {
+                    if (_.isEmpty(data)) {
+                        dispatch(setIsLoggedIn(false))
+                    } else {
+                        authUser = data
+                        dispatch(setIsLoggedIn(true))
+                        setLoginFailed(false)
+                        navigate("/")
+                    }
+                })
+                .catch(err => {
+                    setLoginFailed(true)
+                })
         })
     }
 
-    const test = e => {
-        axios
-        .get('/api/user')
-        .then(response => {
-            console.log(response.data)
-        })
-    }
-
-    const logOut = e => {
-        axios
-        .post('/api/logout')
-    }
+    useEffect(() => {
+        if (authUser) {
+            navigate('/')
+        }
+    }, [])
 
     return (
         <div className="container">
@@ -67,6 +65,16 @@ function LoginForm() {
                         type="password"
                         className="form-control mb-3"
                     />
+                    
+                        {loginFailed
+                        ?
+                            <div style={{color: "red", marginBottom: "1em"}}>
+                                E-pasts vai parole nav pareiza
+                            </div>  
+                        :
+                            <></>
+                        }
+                    
 
                     <button
                         onClick={submitHandler}

@@ -48,7 +48,9 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        $course->load("questions");
+        
+        return response()->json($course);
     }
 
     /**

@@ -2,12 +2,29 @@ import React from 'react'
 
 import UserLogo from './UserLogo'
 import user_default from '../../../img/user-default.png';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setIsLoggedIn } from '../../state/actions';
+import { useNavigate } from 'react-router-dom';
 
 function UserInformation() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const user = {
         name: "Lauris",
         surname: "Melderis",
         type: "student"
+    }
+
+    const logout = () => {
+        axios
+            .post('/api/logout')
+            .then(resp => {
+                authUser = {}
+                navigate("/login")
+                dispatch(setIsLoggedIn(false))
+            })
     }
 
     let canCheckResults = false
@@ -63,6 +80,7 @@ function UserInformation() {
                 <UserLogo src={user_default} />
                 <button
                     style={{width: "100%"}}
+                    onClick={logout}
                 >
                     Iziet
                 </button>
