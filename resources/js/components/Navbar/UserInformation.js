@@ -27,6 +27,14 @@ function UserInformation() {
             })
     }
 
+    const testApi = () => {
+        axios
+            .get('/api/course/1/attempt/1')
+            .then(response => {
+                console.log(response.data)
+            })
+    }
+
     let canCheckResults = false
 
     let typeElement
@@ -83,6 +91,14 @@ function UserInformation() {
                     onClick={logout}
                 >
                     Iziet
+                </button>
+            </div>
+            <div>
+                <button
+                    style={{width: "100%"}}
+                    onClick={testApi}
+                >
+                    Test API
                 </button>
             </div>
         </>

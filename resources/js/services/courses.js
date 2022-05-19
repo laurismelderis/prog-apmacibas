@@ -27,9 +27,9 @@ const courses = [
 ]
 
 export const getCourses = async () => {
-    return axios.get("/api/courses")
+    return axios.get("/api/course")
 }
 
 export const getCourseById = (id) => {
-    return axios.get(`/api/courses/${id}`)
+    return axios.get(`/api/course/${id}`)
 }

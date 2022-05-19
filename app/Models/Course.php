@@ -9,9 +9,9 @@ class Course extends Model
 {
     use HasFactory;
 
-    public function attempt ()
+    public function attempts ()
     {
-        return $this->belongsTo(Attempt::class);
+        return $this->hasMany(Attempt::class);
     }
 
     public function answer ()

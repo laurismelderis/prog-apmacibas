@@ -9,7 +9,7 @@ import Course from './Course';
 import Navbar from './Navbar/Navbar';
 import store from '../state/state'
 
-import "../../css/App.css"
+import "../../css/app.css"
 import NotFound from './NotFound';
 import ProtectedRoute from './ProtectedRoute';
 import { setIsLoggedIn } from '../state/actions';
