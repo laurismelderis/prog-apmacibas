@@ -1,0 +1,11 @@
+.navigation {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    position: absolute;
+    left: 0;
+    bottom: 2.5em;
+}

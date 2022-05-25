@@ -4,7 +4,11 @@ import { useParams, useNavigate } from 'react-router-dom'
 
 import { getCourseById } from '../services/courses'
 import { setIsInCourse } from '../state/actions'
+import PaginationPane from './PaginationPane';
 import _ from 'lodash'
+import Options from './Options'
+import '../../css/Course.css'
+import CourseFinished from './CourseFinished'
 
 function Course() {
     const dispatch = useDispatch()
@@ -13,6 +17,17 @@ function Course() {
     const params = useParams()
     const courseId = params.course
     const [course, setCourse] = useState({})
+    const [currentPage, setCurrentPage] = useState(1)
+    const questions = course.questions || []
+    const currentQuestion = questions.find(question => question.id === currentPage) || {}
+
+    const isTheory = currentQuestion.theory === 1 ? true : false
+    const isFirstPage = currentPage === 1
+    const isLastPage = currentPage === questions.length
+    const [isCourseFinished, setIsCourseFinished] = useState(true)
+
+    const options = currentQuestion.options || []
+    const optionType = options[0] === undefined ? '' : options[0].type
 
     useEffect(async () => {
         const getData = async () => {
@@ -25,23 +40,63 @@ function Course() {
 
         dispatch(setIsInCourse(true))
     }, [])
-    
-    console.log(course)
+
+    const finishCourse = () => {
+        setIsCourseFinished(true)
+    }
+
+    console.log(options)
 
     if ( ! _.isEmpty(course)) {
+        if (isCourseFinished) {
+            return (
+                <CourseFinished 
+                    course={course}
+                    setCurrentPage={setCurrentPage}
+                    setIsCourseFinished={setIsCourseFinished}    
+                />
+            )
+        }
+
         return (
             <>
                 <h1>{course.description}</h1>
-                {course.questions.map((question, index) => {
-                    return (
-                        <div key={index}>
-                            <h5>{index+1}. {question.text}</h5>
-                            {question.options.map((option, oIndex) => {
-                                return <h6 key={`${index}-${oIndex}`}>{JSON.stringify(option.text)}</h6>
-                            })}
-                        </div>
-                    )
-                })}
+                <h5>{currentQuestion.text}</h5>
+                { isTheory
+                    ?
+                        <Options options={options} name={currentQuestion.id} type={optionType}/>
+                    :
+                        <></>
+                }
+                <div className="navigation">
+                    {isFirstPage
+                        ?
+                            <div></div>
+                        :
+                            <button
+                                className="navigation-left"
+                                onClick={() => setCurrentPage(currentPage-1)}
+                            >
+                                {"<=="}
+                            </button>
+                    }
+                    {isLastPage
+                        ?
+                            <button onClick={finishCourse}>Pabeigt kursu</button>
+                        :
+                            <button 
+                                className="navigation-right"
+                                onClick={() => setCurrentPage(currentPage+1)}
+                            >
+                                {"==>"}
+                            </button>
+                    }
+                </div>
+                <PaginationPane 
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    questions={questions}
+                />
             </>
         )
     } else {
