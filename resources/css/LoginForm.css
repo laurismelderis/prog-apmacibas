@@ -1,0 +1,26 @@
+.login-div {
+    text-align: center;
+
+    border-radius: 0.75em;
+    background: #9c9c9c;
+    color: white;
+    border: none;
+    margin-bottom: 1em;
+}
+
+.login-div:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.register-div {
+    text-align: center;
+    text-decoration: underline;
+    color: #9c9c9c;
+}
+
+.register-div:hover {
+    opacity: 0.7;
+    text-decoration: none;
+    cursor: pointer;
+}

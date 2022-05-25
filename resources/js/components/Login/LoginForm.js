@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { setIsLoggedIn } from '../../state/actions';
 import _ from 'lodash'
 
+import '../../../css/LoginForm.css'
+
 function LoginForm() {
     const navigate = useNavigate()
 
@@ -76,11 +78,14 @@ function LoginForm() {
                         }
                     
 
-                    <button
+                    <div
+                        className='login-div'
                         onClick={submitHandler}
                     >
-                        Ielogoties
-                    </button>
+                        Ieiet portālā
+                    </div>
+                    <div className='register-div'>Pieteikties kā individuālais lietotājs</div>
+                    <div className='register-div'>Pieteikties kā institūcija / organizācija</div>
                 </div>
             </div>
         </div>
