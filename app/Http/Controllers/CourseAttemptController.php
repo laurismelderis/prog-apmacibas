@@ -48,9 +48,13 @@ class CourseAttemptController extends Controller
         return response()->json($course);
     }
 
-    public function update(Request $request, $id)
+    public function update(Course $course, Attempt $attempt, Request $request)
     {
-        //
+        $attempt->last_page = $request->page;
+        $attempt->submitted_at = $request->submittedAt;
+        $attempt->save();
+
+        return response()->json($attempt);
     }
 
     public function destroy($id)

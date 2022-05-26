@@ -9,6 +9,7 @@ use App\Http\Controllers\{
     CourseAttemptController,
     CourseController,
     AuthController,
+    AnswerController,
 };
 
 Route::middleware('auth:sanctum')->group(function (){
@@ -19,9 +20,11 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::post('/logout', [AuthController::class, 'logOut']);
 
     Route::apiResources([
+        'answer' => AnswerController::class,
         'course' => CourseController::class,
         'course.attempt' => CourseAttemptController::class,
     ]);
 });
 
 Route::post('login', [AuthController::class, 'logIn']);
+Route::post('register', [AuthController::class, 'register']);
