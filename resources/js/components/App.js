@@ -13,6 +13,8 @@ import "../../css/app.css"
 import NotFound from './NotFound';
 import ProtectedRoute from './ProtectedRoute';
 import { setIsLoggedIn } from '../state/actions';
+import RegisterUser from './Register/RegisterUser';
+import RegisterOrganization from './Register/RegisterOrganization';
 
 function App() {
     const dispatch = useDispatch()
@@ -36,6 +38,8 @@ function App() {
                         </ProtectedRoute>
                     } />
                     <Route path="login" element={<LoginForm />} />
+                    <Route path="register/user" element={<RegisterUser />} />
+                    <Route path="register/organization" element={<RegisterOrganization />} />
                     <Route path="not-found" element={<NotFound />} />
                     <Route path="*" element={<Navigate to={"not-found"} />}/>
                 </Routes>

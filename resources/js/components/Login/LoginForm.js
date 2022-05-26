@@ -68,24 +68,22 @@ function LoginForm() {
                         className="form-control mb-3"
                     />
                     
-                        {loginFailed
-                        ?
-                            <div style={{color: "red", marginBottom: "1em"}}>
-                                E-pasts vai parole nav pareiza
-                            </div>  
-                        :
-                            <></>
-                        }
-                    
-
+                    {loginFailed
+                    ?
+                        <div style={{color: "red", marginBottom: "1em"}}>
+                            E-pasts vai parole nav pareiza
+                        </div>  
+                    :
+                        <></>
+                    }
                     <div
                         className='login-div'
                         onClick={submitHandler}
                     >
                         Ieiet portālā
                     </div>
-                    <div className='register-div'>Pieteikties kā individuālais lietotājs</div>
-                    <div className='register-div'>Pieteikties kā institūcija / organizācija</div>
+                    <div className='register-div' onClick={() => navigate('/register/user')}>Pieteikties kā individuālais lietotājs</div>
+                    <div className='register-div' onClick={() => navigate('/register/organization')}>Pieteikties kā institūcija / organizācija</div>
                 </div>
             </div>
         </div>
