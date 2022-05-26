@@ -24,7 +24,7 @@ function Course() {
     const isTheory = currentQuestion.theory === 1 ? true : false
     const isFirstPage = currentPage === 1
     const isLastPage = currentPage === questions.length
-    const [isCourseFinished, setIsCourseFinished] = useState(true)
+    const [isCourseFinished, setIsCourseFinished] = useState(false)
 
     const options = currentQuestion.options || []
     const optionType = options[0] === undefined ? '' : options[0].type
@@ -45,7 +45,7 @@ function Course() {
         setIsCourseFinished(true)
     }
 
-    console.log(options)
+    console.log(currentQuestion)
 
     if ( ! _.isEmpty(course)) {
         if (isCourseFinished) {
