@@ -31,17 +31,17 @@ export const getCourses = async () => {
 }
 
 export const getCourseById = (id) => {
-    return axios.post(`/api/course/${id}/attempt`).then(response => {
-        const data = axios.get(`/api/course/${id}/attempt/${response.data.id}`)
-        return data
+    return axios.get(`/api/course/${id}/attempt`).then(resp => {
+        const attempts = resp.data
+        if ( ! _.isEmpty(attempts)) {
+            const data = axios.get(`/api/course/${id}/attempt/${attempts[attempts.length - 1].id}`)
+            return data
+        } else {
+            console.log('New attempt')
+            return axios.post(`/api/course/${id}/attempt`).then(response => {
+                const data = axios.get(`/api/course/${id}/attempt/${response.data.id}`)
+                return data
+            })
+        }
     })
-}
-export const setQuestionAnswer = (questionId) => {
-
-}
-export const getQuestionAnswer = (questionId) => {
-
-}
-export const getCourseLastPage = (id) => {
-
 }

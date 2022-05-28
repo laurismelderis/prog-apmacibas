@@ -27,7 +27,9 @@ class CourseController extends Controller
 
     public function show(Course $course)
     {
-        $course->load("questions");
+        $course->load(["questions", "attempts" => function($query){
+            $query->where("user_id", auth()->user()->id);
+        }]);
         
         return response()->json($course);
     }

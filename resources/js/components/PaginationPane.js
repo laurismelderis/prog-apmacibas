@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 import '../../css/PaginationPane.css'
 
-function PaginationPane({ currentPage, setCurrentPage }) {
+function PaginationPane({ currentPage, updateLastPage }) {
     const course = useSelector(state => state.course)
     const questions = course.questions
 
@@ -22,7 +22,7 @@ function PaginationPane({ currentPage, setCurrentPage }) {
                         <div 
                             key={index+1}
                             className={'page ' + color}
-                            onClick={() => setCurrentPage(index+1)}
+                            onClick={() => updateLastPage(index+1)}
                         >
                             {index+1}
                         </div>

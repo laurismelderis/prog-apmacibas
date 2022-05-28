@@ -5,11 +5,11 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { getCourseById } from '../services/courses'
 import { setIsInCourse, setCourse } from '../state/actions'
 import PaginationPane from './PaginationPane';
-import _ from 'lodash'
+import _, { update } from 'lodash'
 import Options from './Options'
 import '../../css/Course.css'
 import CourseFinished from './CourseFinished'
-import RadioGroup from './common/RadioGroup'
+import axios from 'axios'
 
 function Course() {
     const dispatch = useDispatch()
@@ -18,7 +18,7 @@ function Course() {
     const params = useParams()
     const courseId = params.course
     const course = useSelector(state => state.course)
-    const [currentPage, setCurrentPage] = useState(1)
+    const [currentPage, setCurrentPage] = useState(0)
     const questions = course.questions || []
     const currentQuestion = questions.find(question => question.id === currentPage) || {}
 
@@ -33,9 +33,12 @@ function Course() {
         const getData = async () => {
             const { data } = await getCourseById(courseId)
             dispatch(setCourse(data))
+            setCurrentPage(data.attempts[data.attempts.length - 1].last_page)
+            setIsCourseFinished(data.attempts[data.attempts.length - 1].submitted_at != null)
         }
 
         getData().catch((err) => {
+            console.log(err)
             navigate('/')
         })
         
@@ -44,8 +47,39 @@ function Course() {
 
     const finishCourse = () => {
         setIsCourseFinished(true)
+        
+        axios.get(`/api/course/${courseId}/attempt`).then(resp => {
+            const attemptId = resp.data[0].id
+            let newDate = new Date()
+            let date = newDate.getDate();
+            let month = newDate.getMonth() + 1;
+            let year = newDate.getFullYear();
+
+            let data = {
+                submittedAt: `${year}-${month}-${date}`
+            }
+            
+            axios.put(`/api/course/${courseId}/attempt/${attemptId}`, data)
+        })
     }
 
+    const updateLastPage = (page) => {
+        axios.get(`/api/course/${courseId}/attempt`).then(resp => {
+            const attemptId = resp.data[0].id
+            let newDate = new Date()
+            let date = newDate.getDate();
+            let month = newDate.getMonth() + 1;
+            let year = newDate.getFullYear();
+            
+            let data = {
+                submittedAt: `${year}-${month}-${date}`,
+                page: page
+            }
+            
+            axios.put(`/api/course/${courseId}/attempt/${attemptId}`, data)
+            setCurrentPage(page)
+        })
+    }
 
     if ( ! _.isEmpty(course)) {
         if (isCourseFinished) {
@@ -85,7 +119,7 @@ function Course() {
                         :
                             <button
                                 className="navigation-left"
-                                onClick={() => setCurrentPage(currentPage-1)}
+                                onClick={() => updateLastPage(currentPage-1)}
                             >
                                 {"<=="}
                             </button>
@@ -96,7 +130,7 @@ function Course() {
                         :
                             <button 
                                 className="navigation-right"
-                                onClick={() => setCurrentPage(currentPage+1)}
+                                onClick={() => updateLastPage(currentPage-1)}
                             >
                                 {"==>"}
                             </button>
@@ -104,7 +138,7 @@ function Course() {
                 </div>
                 <PaginationPane 
                     currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
+                    updateLastPage={updateLastPage}
                 />
             </>
         )

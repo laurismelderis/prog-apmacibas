@@ -12,9 +12,12 @@ use App\{
 
 class CourseAttemptController extends Controller
 {
-    public function index()
+    public function index(Course $course)
     {
-        //
+        $attempt = Attempt::where('course_id', $course->id)
+            ->where('user_id', auth()->user()->id)->get();
+
+        return response()->json($attempt);
     }
 
     public function store(Course $course, Request $request)
@@ -42,7 +45,10 @@ class CourseAttemptController extends Controller
                         ->with('options.answers')
                         ->orderBy('theory', 'desc')
                         ;
-                } 
+                },
+                "attempts" => function ($query) {
+                    $query->where('user_id', auth()->user()->id);
+                }
             ]);
 
         return response()->json($course);
