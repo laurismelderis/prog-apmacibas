@@ -29,7 +29,7 @@ class OptionFactory extends Factory
             'points' => 1,
             'type' => $type,
             'is_correct' => $isCorrect,
-            'question_id' => $question
+            'question_id' => $question,
         ]);
     }
 }
