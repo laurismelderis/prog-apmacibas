@@ -1,9 +1,10 @@
 import React from 'react'
 import RadioGroup from './common/RadioGroup'
 
-function Options({ type, name, options }) {
+function Options({ type, name }) {
+
     if (type === 'radio') 
-        return <RadioGroup options={options} name={name} />
+        return <RadioGroup name={name} />
         
     return (
         <></>

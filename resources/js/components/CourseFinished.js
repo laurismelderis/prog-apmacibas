@@ -1,9 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import '../../css/CourseFinished.css'
 
-function CourseFinished({ course, setCurrentPage, setIsCourseFinished }) {
-    const exercises = course.questions.filter(question => question.theory === 1)
+function CourseFinished({ setCurrentPage, setIsCourseFinished }) {
+    const course = useSelector(state => state.course)
+
+    const exercises = course.questions.filter(question => question.theory === 0)
 
     return (
         <div>
