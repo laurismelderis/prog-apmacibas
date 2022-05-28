@@ -14,16 +14,17 @@ class QuestionFactory extends Factory
     public function definition()
     {
         return [
-            'text' => $this->faker->realText(100),
+            'text' => $this->faker->realText(100000),
             'course_id' => 1
         ];
     }
 
-    public function question($text, $course)
+    public function question($text, $course, $theory)
     {
         return $this->state([
             'text' => $text,
-            'course_id' => $course
+            'course_id' => $course,
+            'theory' => $theory
         ]);
     }
 }
