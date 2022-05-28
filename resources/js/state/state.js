@@ -6,6 +6,7 @@ function createInitialState() {
     return {
         isLoggedIn: false, // Is the user signed in
         isInCourse: false, // Is the user in some course
+        course: {},
     }
 }
 
@@ -17,6 +18,9 @@ export function reducer(state = createInitialState(), action) {
             }
             case A.SET_IS_IN_COURSE: {
                 return { ...state, isInCourse: action.value }
+            }
+            case A.SET_COURSE: {
+                return { ...state, course: action.value }
             }
             default: {
                 return state

@@ -31,8 +31,17 @@ export const getCourses = async () => {
 }
 
 export const getCourseById = (id) => {
-    // return axios.get(`/api/course/${id}`)
     return axios.post(`/api/course/${id}/attempt`).then(response => {
-        return axios.get(`/api/course/${id}/attempt/${response.data.id}`)
+        const data = axios.get(`/api/course/${id}/attempt/${response.data.id}`)
+        return data
     })
+}
+export const setQuestionAnswer = (questionId) => {
+
+}
+export const getQuestionAnswer = (questionId) => {
+
+}
+export const getCourseLastPage = (id) => {
+
 }

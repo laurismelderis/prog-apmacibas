@@ -11,7 +11,11 @@
     <body>
         <div id="app"></div>
         <script>
-            let authUser = {!! json_encode(Auth::user()) !!}
+            @if (Auth::user())
+                let authUser = {!! json_encode(Auth::user()->load('group')) !!}
+            @else 
+                authUser = null
+            @endif
         </script>
         <script src="{{asset('js/app.js')}}"></script>
     </body>

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 
 import { getCourseById } from '../services/courses'
-import { setIsInCourse } from '../state/actions'
+import { setIsInCourse, setCourse } from '../state/actions'
 import PaginationPane from './PaginationPane';
 import _ from 'lodash'
 import Options from './Options'
 import '../../css/Course.css'
 import CourseFinished from './CourseFinished'
+import RadioGroup from './common/RadioGroup'
 
 function Course() {
     const dispatch = useDispatch()
@@ -16,12 +17,11 @@ function Course() {
 
     const params = useParams()
     const courseId = params.course
-    const [course, setCourse] = useState({})
+    const course = useSelector(state => state.course)
     const [currentPage, setCurrentPage] = useState(1)
     const questions = course.questions || []
     const currentQuestion = questions.find(question => question.id === currentPage) || {}
 
-    const isTheory = currentQuestion.theory === 1 ? true : false
     const isFirstPage = currentPage === 1
     const isLastPage = currentPage === questions.length
     const [isCourseFinished, setIsCourseFinished] = useState(false)
@@ -29,15 +29,16 @@ function Course() {
     const options = currentQuestion.options || []
     const optionType = options[0] === undefined ? '' : options[0].type
 
-    useEffect(async () => {
+    useEffect(() => {
         const getData = async () => {
             const { data } = await getCourseById(courseId)
-            setCourse(data)
+            dispatch(setCourse(data))
         }
+
         getData().catch((err) => {
             navigate('/')
         })
-
+        
         dispatch(setIsInCourse(true))
     }, [])
 
@@ -45,13 +46,11 @@ function Course() {
         setIsCourseFinished(true)
     }
 
-    console.log(currentQuestion)
 
     if ( ! _.isEmpty(course)) {
         if (isCourseFinished) {
             return (
                 <CourseFinished 
-                    course={course}
                     setCurrentPage={setCurrentPage}
                     setIsCourseFinished={setIsCourseFinished}    
                 />
@@ -60,14 +59,25 @@ function Course() {
 
         return (
             <>
-                <h1>{course.description}</h1>
-                <h5>{currentQuestion.text}</h5>
-                { isTheory
-                    ?
-                        <Options options={options} name={currentQuestion.id} type={optionType}/>
-                    :
-                        <></>
-                }
+                {questions.map((question, index) => {
+                    if (question.id === currentPage) {
+                        return (
+                            <div key={index}>
+                                <h1>{course.description}</h1>
+                                <h5>{question.text}</h5>
+                                { ! question.isTheory
+                                    ?
+                                        <Options
+                                            name={currentQuestion.id}
+                                            type={optionType}
+                                        />
+                                    :
+                                        <></>
+                                }
+                            </div>
+                        )
+                    }
+                })}
                 <div className="navigation">
                     {isFirstPage
                         ?
@@ -95,7 +105,6 @@ function Course() {
                 <PaginationPane 
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
-                    questions={questions}
                 />
             </>
         )

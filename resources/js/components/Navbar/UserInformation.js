@@ -12,9 +12,8 @@ function UserInformation() {
     const navigate = useNavigate()
 
     const user = {
-        name: "Lauris",
-        surname: "Melderis",
-        type: "student"
+        name: authUser.name,
+        surname: authUser.surname,
     }
 
     const logout = () => {

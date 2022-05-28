@@ -1,8 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import '../../css/PaginationPane.css'
 
-function PaginationPane({ currentPage, setCurrentPage, questions }) {
+function PaginationPane({ currentPage, setCurrentPage }) {
+    const course = useSelector(state => state.course)
+    const questions = course.questions
+
     return (
         <>
             <div className='panel'>
