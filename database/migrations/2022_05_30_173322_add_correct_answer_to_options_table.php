@@ -9,14 +9,14 @@ class AddCorrectAnswerToOptionsTable extends Migration
     public function up()
     {
         Schema::table('options', function (Blueprint $table) {
-            $table->string('correct_answer');
+            $table->string('correct_answer')->nullable();
         });
     }
 
     public function down()
     {
         Schema::table('options', function (Blueprint $table) {
-            $table->string('correct_answer');
+            $table->string('correct_answer')->nullable();
         });
     }
 }
