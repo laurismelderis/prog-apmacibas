@@ -13,10 +13,8 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-
             $table->longText('text');
             $table->foreignIdFor(Course::class);
-            $table->tinyInteger('theory')->default('1');
             $table->timestamps();
         });
     }

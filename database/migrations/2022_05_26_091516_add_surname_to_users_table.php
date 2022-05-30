@@ -15,7 +15,6 @@ class AddSurnameToUsersTable extends Migration
     public function up ()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('garade');
             $table->string('grade')->nullable();
             $table->foreignIdFor(Type::class)->nullable()->change();
             $table->foreignIdFor(Group::class)->nullable()->change();

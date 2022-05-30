@@ -11,8 +11,8 @@ class AddTheoryToQuestionsTable extends Migration
     public function up ()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->boolean('theory');
-            $table->string('description');
+            $table->boolean('theory')->nullable();
+            $table->string('description')->nullable();
         });
     }
 
