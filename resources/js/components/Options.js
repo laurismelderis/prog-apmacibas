@@ -6,6 +6,9 @@ function Options({ type, name }) {
     if (type === 'radio') 
         return <RadioGroup name={name} />
         
+    if (type === 'checkbox')
+        console.log('checkbox')
+
     return (
         <></>
     )

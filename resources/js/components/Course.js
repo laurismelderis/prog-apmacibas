@@ -18,22 +18,24 @@ function Course() {
     const params = useParams()
     const courseId = params.course
     const course = useSelector(state => state.course)
-    const [currentPage, setCurrentPage] = useState(0)
+    const [currentPage, setCurrentPage] = useState()
     const questions = course.questions || []
     const currentQuestion = questions.find(question => question.id === currentPage) || {}
-
+    
     const isFirstPage = currentPage === 1
     const isLastPage = currentPage === questions.length
     const [isCourseFinished, setIsCourseFinished] = useState(false)
-
+    
     const options = currentQuestion.options || []
     const optionType = options[0] === undefined ? '' : options[0].type
-
+    
     useEffect(() => {
         const getData = async () => {
             const { data } = await getCourseById(courseId)
             dispatch(setCourse(data))
-            setCurrentPage(data.attempts[data.attempts.length - 1].last_page)
+            const lastPage = data.attempts[data.attempts.length - 1].last_page
+            if (lastPage !== null) setCurrentPage(lastPage)
+            else setCurrentPage(1)
             setIsCourseFinished(data.attempts[data.attempts.length - 1].submitted_at != null)
         }
 
@@ -41,7 +43,7 @@ function Course() {
             console.log(err)
             navigate('/')
         })
-        
+
         dispatch(setIsInCourse(true))
     }, [])
 
@@ -66,13 +68,8 @@ function Course() {
     const updateLastPage = (page) => {
         axios.get(`/api/course/${courseId}/attempt`).then(resp => {
             const attemptId = resp.data[0].id
-            let newDate = new Date()
-            let date = newDate.getDate();
-            let month = newDate.getMonth() + 1;
-            let year = newDate.getFullYear();
             
             let data = {
-                submittedAt: `${year}-${month}-${date}`,
                 page: page
             }
             
@@ -90,7 +87,6 @@ function Course() {
                 />
             )
         }
-
         return (
             <>
                 {questions.map((question, index) => {
@@ -98,7 +94,7 @@ function Course() {
                         return (
                             <div key={index}>
                                 <h1>{course.description}</h1>
-                                <h5>{question.text}</h5>
+                                <div dangerouslySetInnerHTML={{__html: question.text}} />
                                 { ! question.isTheory
                                     ?
                                         <Options
@@ -130,7 +126,7 @@ function Course() {
                         :
                             <button 
                                 className="navigation-right"
-                                onClick={() => updateLastPage(currentPage-1)}
+                                onClick={() => updateLastPage(currentPage+1)}
                             >
                                 {"==>"}
                             </button>
