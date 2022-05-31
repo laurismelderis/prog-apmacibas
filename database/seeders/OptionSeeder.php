@@ -67,16 +67,6 @@ class OptionSeeder extends Seeder
                 'id' => '9'
             ],
             [
-                'question' => 'Kas ir mainīgais?',
-                'answers' => [
-                    ['“Mājiņa”, kas uzglabā kādu konkrētu vērtību', 'correct'],
-                    'Funkcijas nosaukums',
-                    'Cilveks, kas visu laiku mainās'
-                ],
-                'type' => 'radio',
-                'id' => '9'
-            ],
-            [
                 'question' => 'Python programmēšanas valodu var izmantot arī kā kalkulatoru',
                 'answers' => [
                     ['Patiesi', 'correct'],
