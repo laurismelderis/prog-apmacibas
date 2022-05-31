@@ -100,6 +100,7 @@ function Course() {
                                         <Options
                                             name={currentQuestion.id}
                                             type={optionType}
+                                            options={options}
                                         />
                                     :
                                         <></>

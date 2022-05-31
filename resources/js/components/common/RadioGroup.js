@@ -1,11 +1,10 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
 
-function RadioGroup({ name }) {
+function RadioGroup({ name, options }) {
     const course = useSelector(state => state.course)
-    const options = course.questions[name-1].options
 
     const [selectedOption, setSelectedOption] = useState(() => {
         for (let i = 0; i < options.length; i++) {

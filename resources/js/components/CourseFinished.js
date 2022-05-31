@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useState } from 'react'
 
 import '../../css/CourseFinished.css'
 
@@ -23,7 +22,14 @@ function CourseFinished({ setCurrentPage, setIsCourseFinished }) {
                         count++
                     }
                 })
-                const isCorrect = count === correctOptionCount
+                let isCorrect = count === correctOptionCount
+
+                if (correctOptions[0].type === "text") {
+                    const option = correctOptions[0] || {}
+                    const answer = option.answers[0] || {}
+                    isCorrect = option.text == answer.text
+                }
+
                 if (isCorrect) correctAnswers++
                 return <div className="result" key={index}>
                     <div>{index+1}. uzdevums</div>
