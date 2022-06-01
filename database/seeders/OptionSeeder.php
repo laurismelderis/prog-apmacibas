@@ -27,6 +27,7 @@ class OptionSeeder extends Seeder
                     'No angļu valodas - pitons (čūska)'
                 ],
                 'type' => 'radio',
+                'correct_answer' => null,
                 'id' => '5'
             ],
             [
@@ -36,6 +37,7 @@ class OptionSeeder extends Seeder
                     'Patiesi'
                 ],
                 'type' => 'radio',
+                'correct_answer' => null,
                 'id' => '6'
             ],
             [
@@ -46,6 +48,7 @@ class OptionSeeder extends Seeder
                     'Tāda funkcija neeksistē'
                 ],
                 'type' => 'radio',
+                'correct_answer' => null,
                 'id' => '7'
             ],
             [
@@ -54,6 +57,7 @@ class OptionSeeder extends Seeder
                     ['print("Man labi sanāk programmēt")', 'correct'],
                 ],
                 'type' => 'text',
+                'correct_answer' => 'print("Man labi sanāk programmēt")',
                 'id' => '8'
             ],
             [
@@ -64,6 +68,7 @@ class OptionSeeder extends Seeder
                     'Cilveks, kas visu laiku mainās'
                 ],
                 'type' => 'radio',
+                'correct_answer' => null,
                 'id' => '9'
             ],
             [
@@ -73,6 +78,7 @@ class OptionSeeder extends Seeder
                     'Aplami',
                 ],
                 'type' => 'radio',
+                'correct_answer' => null,
                 'id' => '12'
             ],
             [
@@ -82,6 +88,7 @@ class OptionSeeder extends Seeder
                     'Aplami',
                 ],
                 'type' => 'radio',
+                'correct_answer' => null,
                 'id' => '13'
             ],
             [
@@ -89,9 +96,10 @@ class OptionSeeder extends Seeder
                 'answers' => [
                     ['Datu kopa', 'correct'],
                     'Lapiņa ar vārdiem',
-                    'Funkija Python valodā'
+                    'Funkcija Python valodā'
                 ],
                 'type' => 'radio',
+                'correct_answer' => null,
                 'id' => '14'
             ],
             [
@@ -102,6 +110,7 @@ class OptionSeeder extends Seeder
                     'Kurā mainīgajā saglabāt datus'
                 ],
                 'type' => 'radio',
+                'correct_answer' => null,
                 'id' => '15'
             ],
             [
@@ -110,6 +119,7 @@ class OptionSeeder extends Seeder
                     ['10', 'correct'],
                 ],
                 'type' => 'text',
+                'correct_answer' => '10',
                 'id' => '16'
             ],
         ];
@@ -126,7 +136,7 @@ class OptionSeeder extends Seeder
                 }
                 Option::factory()
                     ->count(1)
-                    ->option($answer, $option['type'], $isCorrect, $option['id'])
+                    ->option($answer, $option['type'], $isCorrect, $option['id'], $option['correct_answer'])
                     ->create();
             }
         }

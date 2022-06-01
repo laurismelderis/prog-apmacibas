@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1, width=device-width"/>
-        <title>Laravel & React</title>
+        <title>KIDO</title>
     
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>

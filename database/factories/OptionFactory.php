@@ -22,7 +22,7 @@ class OptionFactory extends Factory
         ];
     }
 
-    public function option($text, $type, $isCorrect, $question)
+    public function option($text, $type, $isCorrect, $question, $correctAnswer)
     {
         return $this->state([
             'text' => $text,
@@ -30,6 +30,7 @@ class OptionFactory extends Factory
             'type' => $type,
             'is_correct' => $isCorrect,
             'question_id' => $question,
+            'correct_answer' => $correctAnswer,
         ]);
     }
 }

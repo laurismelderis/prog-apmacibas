@@ -94,7 +94,7 @@ function Course() {
                         return (
                             <div key={index}>
                                 <h1>{course.description}</h1>
-                                <div dangerouslySetInnerHTML={{__html: question.text}} />
+                                <div className="course-content" dangerouslySetInnerHTML={{__html: question.text}} />
                                 { ! question.isTheory
                                     ?
                                         <Options
