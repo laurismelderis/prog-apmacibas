@@ -79,9 +79,9 @@ function UserInformation() {
                     {user.surname}
                 </h5>
                 {typeElement}
-                <button>
+                {/* <button>
                     Apskatīties rezultātus
-                </button>
+                </button> */}
             </div>
             <div>
                 <UserLogo src={user_default} />
@@ -92,14 +92,14 @@ function UserInformation() {
                     Iziet
                 </button>
             </div>
-            <div>
+            {/* <div>
                 <button
                     style={{width: "100%"}}
                     onClick={testApi}
                 >
                     Test API
                 </button>
-            </div>
+            </div> */}
         </>
     )
 }

@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
 
-function InputText({ questionId, options }) {
+function InputText({ options }) {
     const option = options[options.length - 1]
     const course = useSelector(state => state.course)
     const [text, setText] = useState(() => {
@@ -38,14 +38,14 @@ function InputText({ questionId, options }) {
             })
         }
         setHasTyped(true)
-        setText(newText)
     }
 
     return (
         <input 
             type='text'
             style={{width: "50%"}}
-            onChange={e=> setInputText(e.target.value)}
+            onChange={e=> setText(e.target.value)}
+            onBlur={(e) => setInputText(e.target.value)}
             value={text}
         />
     )
